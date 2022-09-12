@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{post.title}} {% endblock %}
+
+{% block content %} 
+    <h1>{{post.title}}</h1>
+    <br></br>
+    <p>{{post.content}}</p>
+    <br></br>
+    {{post.author}}
+    
+    <h5 style="text-align:left;">
+        
+        by <a href="/author/{{post.author}}">{{post.author}}</a>
+    
+        <span style="float:right;">
+            published: {{post.publish}}
+        </span>
+    </h5>
+    {% if author == request.user.username %}
+    <button> Edit post</button>
+    {% endif %}
+
+{% endblock %}

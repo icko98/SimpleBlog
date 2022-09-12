@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}    
+
+    <center>
+    <img  src="{% static '/example.png' %}">
+  </center>
+    {% if request.user.username == author %}
+    {% for post in posts %}
+    <a href="http://127.0.0.1:8000/post/{{post.slug}}" style="text-decoration:none; color:black;">
+    <article class="blog-post" href={{post.slug}}>
+      <div class="col-12"><h2 class="blog-post-title mb-1">{{post.title}}</h2> </div>
+      <p class="blog-post-meta" style="text-align:left;">
+        by {{post.author}}
+        <span style="float:right;">
+          {% if post.status == "published" %}
+            published: {{post.publish}}
+          {% else %}
+            DRAFT
+          {% endif %}
+        </span></p>
+      <div class="col-12"><p>{{post.content|truncatewords:40}}</p></div>
+      
+    </article>
+  </a>
+    {% endfor %}
+    {% else %}
+    {% for post in filposts %}
+    <a href="http://127.0.0.1:8000/post/{{post.slug}}" style="text-decoration:none; color:black;">
+      <article class="blog-post" href={{post.slug}}>
+        <div class="col-12"><h2 class="blog-post-title mb-1">{{post.title}}</h2> </div>
+        <p class="blog-post-meta" style="text-align:left;">
+          by {{post.author}}
+          <span style="float:right;">
+              published: {{post.publish}}
+          </span></p>
+        <div class="col-12"><p>{{post.content|truncatewords:40}}</p></div>
+        
+      </article>
+    </a>
+    {% endfor %}
+
+    {% endif %}
+    
+{% endblock %}

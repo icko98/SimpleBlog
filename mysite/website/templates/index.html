@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+    {% block title %} Titl {% endblock %}
+    {% block content %}    
+    
+      {% for post in posts %}
+    <a href=post/{{post.slug}} style="text-decoration:none; color:black;">
+    <article class="blog-post" href={{post.slug}}>
+      <div class="col-12"><h2 class="blog-post-title mb-1">{{post.title}}</h2> </div>
+      <p class="blog-post-meta" style="text-align:left;">
+        by {{post.author}}
+        <span style="float:right;">
+            published: {{post.publish}}
+        </span></p>
+      <div class="col-12"><p>{{post.content|truncatewords:40}}</p></div>
+      
+    </article>
+  </a>
+      {% endfor %}
+    
+    {% endblock %}
+

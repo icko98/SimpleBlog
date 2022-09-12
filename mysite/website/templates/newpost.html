@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}  
+<form action="" METHOD="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input name = 'title' type="title" class="form-control" id="title">
+    </div>
+    
+    <div class="form-group">
+      <label for="body">Body:</label>
+    </div>
+      <textarea  id="body" name="body" rows="10" cols="97"></textarea>
+    
+    <div class="checkbox">
+      <label><input value="NO" name='publish' type="checkbox" id="publish"> Publish </label>
+    </div>
+    <button type="submit"  class="btn btn-default">Submit</button>
+  </form>
+{% endblock %}
