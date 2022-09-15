@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -11,20 +11,35 @@ def home(request):
     return render(request, 'index.html', {'posts' : allposts})
 
 def post_single(request, post):
-
-    if(request.user.username== str(Post.objects.get_queryset().filter(slug=post)[0].author) ):
+    print(Post.objects.get_queryset().filter(id=post)[0].id)
+    if(request.user.username== str(Post.objects.get_queryset().filter(id=post)[0].author) ):
         
-        post = get_object_or_404(Post, slug=post)
+        post = get_object_or_404(Post, id=post)
         author = str(post.author)
-        print(post.author)
+        #print(post.author)
         return render(request, 'single.html', {'post':post, 'author':author})
     else:
         
-        post = get_object_or_404(Post, slug=post, status='published')
+        post = get_object_or_404(Post, id=post, status='published')
         author = str(post.author)
         print(post.author)
         return render(request, 'single.html', {'post':post, 'author':author})
-    
+
+
+def editpost(request, post):
+    pp = get_object_or_404(Post, id=post)
+    if request.method=="GET":
+        return render(request, 'editpost.html', {'post': pp})
+    elif request.method=="POST":
+        pp.content = request.POST['body']
+        pp.title = request.POST['title']
+        try:
+            if request.POST['publish']=='NO':
+                pp.status = "published"
+        except KeyError:
+            pp.status = "draft"
+        pp.save()
+        return redirect('http://127.0.0.1:8000/post/' + str(post))
 
 def author_blog(request, author):
     usr = User.objects.get_queryset().filter(username=author)
@@ -48,10 +63,10 @@ def newpost(request):
         author = request.user
 
         pp = Post.objects.create(title=title ,content=content, status=status, author=author, slug=slug ,publish=publish)
+        pp.save()
         
         messages.success(request, ("Register sucessful."))
-        print("USPEH")
-        return home(request)
+        return redirect('http://127.0.0.1:8000/')
 
 
 

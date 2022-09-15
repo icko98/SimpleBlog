@@ -3,8 +3,8 @@
     {% block content %}    
     
       {% for post in posts %}
-    <a href=post/{{post.slug}} style="text-decoration:none; color:black;">
-    <article class="blog-post" href={{post.slug}}>
+    <a href=post/{{post.id}} style="text-decoration:none; color:black;">
+    <article class="blog-post" href={{post.id}}>
       <div class="col-12"><h2 class="blog-post-title mb-1">{{post.title}}</h2> </div>
       <p class="blog-post-meta" style="text-align:left;">
         by {{post.author}}

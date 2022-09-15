@@ -7,7 +7,7 @@
     <br></br>
     <p>{{post.content}}</p>
     <br></br>
-    {{post.author}}
+    
     
     <h5 style="text-align:left;">
         
@@ -17,8 +17,9 @@
             published: {{post.publish}}
         </span>
     </h5>
+    
     {% if author == request.user.username %}
-    <button> Edit post</button>
+    <a href="edit"> Edit post</a>
     {% endif %}
 
 {% endblock %}
