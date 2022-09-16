@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}  
-<form action="" METHOD="POST">
+<form action="" METHOD="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
     <div class="form-group">
@@ -12,8 +12,13 @@
     <div class="form-group">
       <label for="body">Body:</label>
     </div>
+    <div>
       <textarea  id="body" name="body" rows="10" cols="97"></textarea>
-    
+    </div>
+    <div>
+      <label for="image">Cover photo</label>
+      <input name="image" type="file" id="image">
+    </div>
     <div class="checkbox">
       <label><input value="NO" name='publish' type="checkbox" id="publish"> Publish </label>
     </div>

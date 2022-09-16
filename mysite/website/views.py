@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from django.contrib.auth.models import User
 from django.contrib import messages
+from PIL import Image
 
 # Create your views here.
 def home(request):
@@ -33,6 +34,7 @@ def editpost(request, post):
     elif request.method=="POST":
         pp.content = request.POST['body']
         pp.title = request.POST['title']
+        pp.image = request.FILES['image']
         try:
             if request.POST['publish']=='NO':
                 pp.status = "published"
@@ -55,6 +57,11 @@ def newpost(request):
         content= request.POST['body']
         slug = title[0:5]
         publish = datetime.now()
+        try: 
+            if request.FILES['image']:
+                image = request.FILES['image']
+        except KeyError:
+            image=None
         try:
             if request.POST['publish']=='NO':
                 status = "published"
@@ -62,7 +69,7 @@ def newpost(request):
             status = "draft"
         author = request.user
 
-        pp = Post.objects.create(title=title ,content=content, status=status, author=author, slug=slug ,publish=publish)
+        pp = Post.create(title=title ,content=content, status=status, author=author, slug=slug ,publish=publish, image=image)
         pp.save()
         
         messages.success(request, ("Register sucessful."))

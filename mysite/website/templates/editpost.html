@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}  
-<form action="" METHOD="POST">
+<form action="" METHOD="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group">
       <label for="title">Title</label>
@@ -12,7 +12,14 @@
     <div class="form-group">
       <label for="body">Body:</label>
     </div>
+    <div>
       <textarea  id="body" placeholder = {{post.content}} name="body" rows="10" cols="97"></textarea>
+    </div>
+      
+      <div>
+        <label for="image">Cover photo</label>
+        <input name="image" type="file" id="image">
+      </div>
       <h4>Current version:</h4>
        <p>{{post.content}}</p>
     

@@ -5,6 +5,10 @@
 {% block content %} 
     <h1>{{post.title}}</h1>
     <br></br>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" >
+    <br></br>
+    {% endif %}
     <p>{{post.content}}</p>
     <br></br>
     
